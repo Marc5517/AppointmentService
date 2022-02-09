@@ -24,11 +24,11 @@ new Vue({
     data: {
         appointments: [],
         topicToGetBy: "",
-        updateData: { id: "", firstParty: "", secondParty: "", topic: "", date: Date, duration: 0},
+        updateData: { id: "", firstParty: "", secondParty: "", topic: "", date: Date, duration: ""},
         updateMessage: "",
         deleteId: 0,
         deleteMessage: "",
-        addData: { firstParty: "", secondParty: "", topic: "", date: Date, duration: 0},
+        addData: { firstParty: "", secondParty: "", topic: "", date: Date, duration: ""},
         addMessage: ""
     },
     methods: {
