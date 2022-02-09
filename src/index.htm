@@ -12,15 +12,92 @@
 
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
-  <title>Hello app</title>
+  <title>Tidsbestilling</title>
 </head>
 
+<style>
+  body {
+    background-color: lightblue;
+  }
+</style>
+
 <body>
-  <h1>Hello</h1>
+  <div class="jumbotron jumbotron-fluid" style="color: white; background-color: rgb(28, 16, 190);">
+    <div class="container">
+      <h1><strong>Tidsbestillinger</strong></h1>
+      <p>Hold dig opdateret med Tidsbestillingerne</p>
+    </div>
+  </div>
+
   <div id="app">
-    <input v-model="name" placeholder="Name">
-    <button v-on:click="sayHello()" class="btn btn-primary">Say hello</button>
-    <div>{{ greeting }}</div>
+    <!--2022-02-08 Knappen her henter en samling af tidsbestillinger-->
+    <button id="getAllButton" v-on:click="getAllAppointments" class="btn btn-primary">Alle Tidsbestillinger</button>
+
+    <br />
+    
+    <input v-model="topicToGetBy" placeholder="Emne" type ="text"/>
+    <!--2022-02-08 Knappen her henter en samling af tidsbestillinger, ud fra det der er indtastet i søgefeltet-->
+    <button v-on:click="getByTopic(topicToGetBy)" class="btn btn-primary">Søg</button>
+
+    <ul id="appointmentlist" v-if="appointments.length">
+      <li v-for="appointment in appointments">
+        <table class="table-striped table-bordered table-hover">
+          <colgroup>
+            <col span="1" style="width: 5%;">
+            <col span="1" style="width: 8%;">
+            <col span="1" style="width: 8%;">
+            <col span="1" style="width: 8%;">
+            <col span="1" style="width: 10%;">
+            <col span="1" style="width: 5%;">
+         </colgroup>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Første part</th>
+              <th>Anden Part</th>
+              <th>Emne</th>
+              <th>Dato og tid</th>
+              <th>Varighed</th>
+            </tr>
+          </thead>
+          <tr>
+            <td>{{appointment.id}}</td>
+            <td>{{appointment.firstParty}}</td>
+            <td>{{appointment.secondParty}}</td>
+            <td>{{appointment.topic}}</td>
+            <td>{{appointment.date}}</td>
+            <td>{{appointment.duration}} min.</td>
+          </tr>
+        </table>
+        <!--2022-02-08 Knappen her sletter en tidsbestilling-->
+        <button v-on:click="deleteAppointment(appointment.id)" class="btn btn-warning">Slet</button>
+      </li>
+    </ul>
+    <div v-else>Ingen Tidsbestillinger</div>
+    {{deleteMessage}}
+
+    <h2>Skab en tidsbestilling</h2>
+    <input v-model="addData.firstParty" placeholder="Første part" type="text" />
+    <input v-model="addData.secondParty" placeholder="Anden part" type="text" />
+    <input v-model="addData.topic" placeholder="Emne" type="text" />
+    <input v-model="addData.date" placeholder="Dato og Tid" type="datetime-local" />
+    <input v-model.number="addData.duration" placeholder="Varighed" type="number" />
+    <!--2022-02-09 Knappen her skaber en kunde til tabellen i databasen-->
+    <button v-on:click="addAppointment()" class="btn btn-success">Create</button>
+    <div>{{addMessage}}</div>
+    
+    <h2>Opdatere en tidsbestilling</h2>
+    <input v-model.number="updateData.id" placeholder="Id" type="number" />
+    <input v-model="updateData.firstParty" placeholder="Første part" type="text" />
+    <input v-model="updateData.secondParty" placeholder="Anden part" type="text" />
+    <input v-model="updateData.topic" placeholder="Emne" type="text" />
+    <input v-model="updateData.date" placeholder="Dato og Tid" type="datetime-local" />
+    <input v-model.number="updateData.duration" placeholder="Varighed" type="number" />
+    <!--2022-02-09 Knappen her henter opdater en tidsbestilling-->
+    <button v-on:click="updateAppointment()" class="btn btn-success">Opdater</button>
+    <div>{{updateMessage}}</div>
+    
+
   </div>
 
   <script src="bundle.js"></script>
