@@ -13,7 +13,7 @@ interface IAppointment {
 }
 
 // 2022-02-09: Denne her skaber forbindelse til URL'en til restapi'en med tabellen med tidsbestillinger, men virker kun hvis AppointmentREST kører.
-// Hvis jeg havde en cloud så var det ikke nødvendigt at køre begge programmer.
+// Hvis jeg havde en cloud så var det ikke nødvendigt at køre begge programmer samtidig.
 let baseUrl: string = "http://localhost:44537/api/Appointments"
 
 new Vue({
