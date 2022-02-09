@@ -30,6 +30,7 @@
   </div>
 
   <div id="app">
+    <h2>Se Tidsbestillingerne</h2>
     <!--2022-02-08 Knappen her henter en samling af tidsbestillinger-->
     <button id="getAllButton" v-on:click="getAllAppointments" class="btn btn-primary">Alle Tidsbestillinger</button>
 
@@ -76,7 +77,7 @@
     <div v-else>Ingen Tidsbestillinger</div>
     {{deleteMessage}}
 
-    <h2>Skab en tidsbestilling</h2>
+    <h2>Tilføj en tidsbestilling</h2>
     <input v-model="addData.firstParty" placeholder="Første part" type="text" />
     <input v-model="addData.secondParty" placeholder="Anden part" type="text" />
     <input v-model="addData.topic" placeholder="Emne" type="text" />
